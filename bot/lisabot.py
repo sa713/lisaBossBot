@@ -20,6 +20,9 @@ chat_id = config([Botconfig][chat_id_prom]) #ПРОМ
 #chat_id = config([Botconfig][chat_id_ift]) #ИФТ
 bot = telebot.TeleBot(bot_token)
 master_id = config([Botconfig][master_id])
+db_user = config([Botconfig][db_user])
+db_password = config([Botconfig][db_password])
+db_database = config([Botconfig][db_database])
 
 def start(bot, update):
     if update.message.from_user.username == master_id:
@@ -31,7 +34,7 @@ def plus(bot, update):
     if update.message.from_user.username == master_id:
         bot.send_sticker(chat_id, 'CAACAgIAAxkBAAEBUcxfWoTWE9_fH2LLHiePekrjcTQD8wACIQMAApKYGQABS3-P5xR5J7gbBA')
         try:
-            mariadb_connection = mariadb.connect(user='tlgbotuser', password='tlgbotpass', database='tg_bots')
+            mariadb_connection = mariadb.connect(user=db_user, password=db_password, database=db_database)
             sql_select_rating = "SELECT a FROM lisarating;"
             cursor = mariadb_connection.cursor()
 
