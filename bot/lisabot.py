@@ -64,7 +64,7 @@ def minus(bot, update):
         bot.send_sticker(chat_id, 'CAACAgIAAxkBAAEBUcpfWoRaQ1xlcZrCW-9ww9j0X03e4gACGwMAApKYGQABXKvAZtGGe6sbBA')
 
         try:
-            mariadb_connection = mariadb.connect(user='tlgbotuser', password='tlgbotpass', database='tg_bots')
+            mariadb_connection = mariadb.connect(user=db_user, password=db_password, database=db_database)
             sql_select_rating = "SELECT a FROM lisarating;"
             cursor = mariadb_connection.cursor()
 
@@ -92,7 +92,7 @@ def minus(bot, update):
 def rating(bot, update):
     bot.send_sticker(chat_id, 'CAACAgIAAxkBAAEBUc5fWoUdCrBoM0HJV6euckYYXLzPTwACDwMAApKYGQABO29Om3RWbfQbBA')
     try:
-        mariadb_connection = mariadb.connect(user='tlgbotuser', password='tlgbotpass', database='tg_bots')
+        mariadb_connection = mariadb.connect(user=db_user, password=db_password, database=db_database)
         sql_select_rating = "SELECT a FROM lisarating;"
         cursor = mariadb_connection.cursor()
 
