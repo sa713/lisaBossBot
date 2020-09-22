@@ -13,16 +13,17 @@ from telegram.ext import Updater
 from telegram.ext import Filters, MessageHandler
 
 config = configparser.ConfigParser()
-config.read("lisabotconfig.ini")
+config.read('configbot.conf')
 
-bot_token = config([Botconfig][bot_token])
-chat_id = config([Botconfig][chat_id_prom]) #ПРОМ
-#chat_id = config([Botconfig][chat_id_ift]) #ИФТ
+bot_token = config.get('botconfig','bot_token')
+chat_id = config.get('botconfig','chat_id_prom') #ПРОМ
+#chat_id = config.get('botconfig','chat_id_ift') #ИФТ
+master_id = config.get('botconfig','master_id')
+db_user = config.get('botconfig','db_user')
+db_password = config.get('botconfig','db_password')
+db_database = config.get('botconfig','db_database')
+
 bot = telebot.TeleBot(bot_token)
-master_id = config([Botconfig][master_id])
-db_user = config([Botconfig][db_user])
-db_password = config([Botconfig][db_password])
-db_database = config([Botconfig][db_database])
 
 def start(bot, update):
     if update.message.from_user.username == master_id:
