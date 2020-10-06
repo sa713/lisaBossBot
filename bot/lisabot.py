@@ -23,7 +23,19 @@ db_user = config.get('botconfig','db_user')
 db_password = config.get('botconfig','db_password')
 db_database = config.get('botconfig','db_database')
 
+webhook_host = config.get('botconfig','webhook_host')
+webhook_port = config.get('botconfig','webhook_port')
+webhook_listen = config.get('botconfig','webhook_listen')
+
+webhook_ssl_cert = './webhook_cert.pem'
+webhook_ssl_priv = './webhook_priv.key'
+
+webhook_url_base = "https://%s:%s" % (webhook_host, webhook_port)
+webhook_url_path = "/%s/" % (bot_token)
+
 bot = telebot.TeleBot(bot_token)
+
+app = web.Application()
 
 def start(bot, update):
     if update.message.from_user.username == master_id:
@@ -140,3 +152,13 @@ updater.dispatcher.add_handler(minus_handler)
 updater.dispatcher.add_handler(rating_handler)
 updater.dispatcher.add_handler(status_handler)
 updater.start_polling()
+
+context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
+context.load_cert_chain(webhook_ssl_cert, webhook_ssl_priv)
+
+web.run_app(
+    app,
+    host=webhook_listen,
+    port=webhook_port,
+    ssl_context=context,
+)
