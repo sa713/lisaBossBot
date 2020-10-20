@@ -37,13 +37,13 @@ bot = telebot.TeleBot(bot_token)
 
 app = web.Application()
 
-def start(bot, update):
+def start(update, context):
     if update.message.from_user.username == master_id:
-        bot.sendMessage(chat_id=update.message.chat_id, text="Приветствую тебя, Мастер!")
+        bot.send_message(chat_id=update.message.chat_id, text="Приветствую тебя, Мастер!")
     else:
-        bot.sendMessage(chat_id=update.message.chat_id, text="Только Мастер может запускать бота.")
+        bot.send_message(chat_id=update.message.chat_id, text="Только Мастер может запускать бота.")
 
-def plus(bot, update):
+def plus(update, context):
     if update.message.from_user.username == master_id:
         bot.send_sticker(chat_id, 'CAACAgIAAxkBAAEBUcxfWoTWE9_fH2LLHiePekrjcTQD8wACIQMAApKYGQABS3-P5xR5J7gbBA')
         try:
@@ -70,9 +70,9 @@ def plus(bot, update):
                 mariadb_connection.close()
 
         else:
-        bot.sendMessage(chat_id=update.message.chat_id, text="Только Мастер может управлять рейтингом.")
+        bot.send_message(chat_id=update.message.chat_id, text="Только Мастер может управлять рейтингом.")
 
-def minus(bot, update):
+def minus(update, context):
     if update.message.from_user.username == master_id:
         bot.send_sticker(chat_id, 'CAACAgIAAxkBAAEBUcpfWoRaQ1xlcZrCW-9ww9j0X03e4gACGwMAApKYGQABXKvAZtGGe6sbBA')
 
@@ -100,9 +100,9 @@ def minus(bot, update):
             if(mariadb_connection.is_connected()):
                 mariadb_connection.close()
     else:
-        bot.sendMessage(chat_id=update.message.chat_id, text="Только Мастер может управлять рейтингом.")
+        bot.send_message(chat_id=update.message.chat_id, text="Только Мастер может управлять рейтингом.")
 
-def rating(bot, update):
+def rating(update, context):
     bot.send_sticker(chat_id, 'CAACAgIAAxkBAAEBUc5fWoUdCrBoM0HJV6euckYYXLzPTwACDwMAApKYGQABO29Om3RWbfQbBA')
     try:
         mariadb_connection = mariadb.connect(user=db_user, password=db_password, database=db_database)
@@ -124,7 +124,7 @@ def rating(bot, update):
         if(mariadb_connection.is_connected()):
             mariadb_connection.close()
 
-def status(bot, update):
+def status(update, context):
     now = datetime.datetime.now()
     day = datetime.datetime.today().isoweekday()
     try:
