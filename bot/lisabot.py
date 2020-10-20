@@ -69,7 +69,7 @@ def plus(update, context):
             if (mariadb_connection.is_connected()):
                 mariadb_connection.close()
 
-        else:
+    else:
         bot.send_message(chat_id=update.message.chat_id, text="Только Мастер может управлять рейтингом.")
 
 def minus(update, context):
